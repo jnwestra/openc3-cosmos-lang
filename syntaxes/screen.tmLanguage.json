@@ -2,8 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
   "name": "COSMOS Screen",
   "patterns": [
-    { "include": "#erb_blocks" },
-    { "include": "#erb_expression" },
+    { "include": "#erb_anywhere" },
     { "include": "#button_with_javascript" },
     { "include": "#comments" },
     { "include": "#screen_keywords" },
@@ -16,77 +15,63 @@
     { "include": "#named_widgets" }
   ],
   "repository": {
-    "erb_blocks": {
-      "name": "meta.embedded.block.erb",
-      "begin": "(<%+)(?!%|=|-|#)",
-      "beginCaptures": {
-        "1": { "name": "punctuation.section.embedded.begin.erb" }
-      },
-      "end": "%>",
-      "endCaptures": {
-        "0": { "name": "punctuation.section.embedded.end.erb" }
-      },
+    "erb_anywhere": {
       "patterns": [
-        { "include": "source.ruby" }
-      ]
-    },
-    "erb_expression": {
-      "name": "meta.embedded.line.erb",
-      "begin": "(<%=)",
-      "beginCaptures": {
-        "1": { "name": "punctuation.section.embedded.begin.erb" }
-      },
-      "end": "%>",
-      "endCaptures": {
-        "0": { "name": "punctuation.section.embedded.end.erb" }
-      },
-      "patterns": [
-        { "include": "source.ruby" }
+        {
+          "name": "meta.embedded.block.erb",
+          "begin": "<%(?!%|=|-|#)",
+          "beginCaptures": {
+            "0": { "name": "punctuation.section.embedded.begin.erb" }
+          },
+          "end": "%>",
+          "endCaptures": {
+            "0": { "name": "punctuation.section.embedded.end.erb" }
+          },
+          "contentName": "source.ruby.embedded.erb",
+          "patterns": [
+            { "include": "source.ruby" }
+          ]
+        },
+        {
+          "name": "meta.embedded.line.erb",
+          "begin": "<%=",
+          "beginCaptures": {
+            "0": { "name": "punctuation.section.embedded.begin.erb" }
+          },
+          "end": "%>",
+          "endCaptures": {
+            "0": { "name": "punctuation.section.embedded.end.erb" }
+          },
+          "contentName": "source.ruby.embedded.erb",
+          "patterns": [
+            { "include": "source.ruby" }
+          ]
+        }
       ]
     },
     "button_with_javascript": {
       "name": "meta.button.with.javascript.cosmos",
-      "begin": "(BUTTON)\\s+(['\"])([^\\2]*?)\\2\\s+",
+      "begin": "(BUTTON)\\s+(['\"])([^\\2]*?)\\2\\s+(['\"])",
       "beginCaptures": {
         "1": { "name": "entity.name.tag.widget.cosmos" },
         "2": { "name": "punctuation.definition.string.begin.cosmos" },
-        "3": { "name": "string.quoted.cosmos" }
+        "3": { "name": "string.quoted.cosmos" },
+        "4": { "name": "punctuation.definition.string.begin.js.cosmos" }
       },
       "patterns": [
-        {
-          "name": "meta.button.javascript.single-quoted.cosmos",
-          "begin": "'",
-          "beginCaptures": {
-            "0": { "name": "punctuation.definition.string.begin.cosmos" }
-          },
-          "end": "'(?!\\s*\\\\)",
-          "endCaptures": {
-            "0": { "name": "punctuation.definition.string.end.cosmos" }
-          },
-          "patterns": [
-            { "include": "source.js" }
-          ]
-        },
-        {
-          "name": "meta.button.javascript.double-quoted.cosmos",
-          "begin": "\"",
-          "beginCaptures": {
-            "0": { "name": "punctuation.definition.string.begin.cosmos" }
-          },
-          "end": "\"(?!\\s*\\\\)",
-          "endCaptures": {
-            "0": { "name": "punctuation.definition.string.end.cosmos" }
-          },
-          "patterns": [
-            { "include": "source.js" }
-          ]
-        },
+        { "include": "#erb_anywhere" },
         {
           "match": "\\\\\\s*$",
           "name": "constant.character.escape.line-continuation.cosmos"
+        },
+        {
+          "include": "source.js"
         }
       ],
-      "end": "(?<!\\\\)(?=$|\\s*(?:SCREEN|END|VERTICALBOX|HORIZONTALBOX|LABEL|BUTTON|CHECKBUTTON|COMBOBOX|CANVAS))"
+      "end": "\\4(?!\\s*\\\\)|(?:(?<!\\\\)(?=$|\\s*(?:SCREEN|END|VERTICALBOX|HORIZONTALBOX|LABEL|BUTTON|CHECKBUTTON|COMBOBOX|CANVAS)))",
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.string.end.js.cosmos" }
+      }
     },
     "comments": {
       "patterns": [{
@@ -103,7 +88,7 @@
     "widget_keywords": {
       "patterns": [{
         "name": "entity.name.tag.widget.cosmos",
-        "match": "\\b(LABEL|BUTTON|CHECKBUTTON|COMBOBOX|CANVAS|TEXTFIELD|TEXTBOX|RADIOBUTTON|LABELVALUEVALUE|LABELVALUE|LIMITSBAR|LINEGRAPH|MATRIXBYCOLUMNS|SCREENS|TABBOOK|TABITEM|MULTI_WIDGET|FORMATVALUE|ARRAY|SETTING|NAMED_WIDGET)\\b"
+        "match": "\\b(LABEL|BUTTON|CHECKBUTTON|COMBOBOX|CANVAS|TEXTFIELD|TEXTBOX|RADIOBUTTON|LABELVALUEVALUE|LABELVALUE|VALUE|LIMITSBAR|LINEGRAPH|MATRIXBYCOLUMNS|SCREENS|TABBOOK|TABITEM|MULTI_WIDGET|FORMATVALUE|ARRAY|SETTING|NAMED_WIDGET)\\b"
       }]
     },
     "layout_keywords": {
@@ -113,13 +98,30 @@
       }]
     },
     "strings": {
-      "name": "string.quoted.double.cosmos",
-      "begin": "\"",
-      "end": "\"",
       "patterns": [
         {
-          "name": "constant.character.escape.cosmos",
-          "match": "\\\\."
+          "name": "string.quoted.double.cosmos",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            { "include": "#erb_anywhere" },
+            {
+              "name": "constant.character.escape.cosmos",
+              "match": "\\\\."
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.cosmos",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            { "include": "#erb_anywhere" },
+            {
+              "name": "constant.character.escape.cosmos",
+              "match": "\\\\."
+            }
+          ]
         }
       ]
     },
