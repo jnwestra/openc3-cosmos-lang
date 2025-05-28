@@ -26,7 +26,11 @@
       {
         "language": "cosmos-screen",
         "scopeName": "source.cosmos.screen",
-        "path": "./syntaxes/screen.tmLanguage.json"
+        "path": "./syntaxes/screen.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.erb": "ruby",
+          "meta.embedded.line.erb": "ruby"
+        }
       }
     ]
   }

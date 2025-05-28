@@ -2,6 +2,8 @@
   "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
   "name": "COSMOS Screen",
   "patterns": [
+    { "include": "#erb_blocks" },
+    { "include": "#erb_expression" },
     { "include": "#comments" },
     { "include": "#screen_keywords" },
     { "include": "#widget_keywords" },
@@ -13,6 +15,34 @@
     { "include": "#named_widgets" }
   ],
   "repository": {
+    "erb_blocks": {
+      "name": "meta.embedded.block.erb",
+      "begin": "(<%+)(?!%|=|-|#)",
+      "beginCaptures": {
+        "1": { "name": "punctuation.section.embedded.begin.erb" }
+      },
+      "end": "%>",
+      "endCaptures": {
+        "0": { "name": "punctuation.section.embedded.end.erb" }
+      },
+      "patterns": [
+        { "include": "source.ruby" }
+      ]
+    },
+    "erb_expression": {
+      "name": "meta.embedded.line.erb",
+      "begin": "(<%=)",
+      "beginCaptures": {
+        "1": { "name": "punctuation.section.embedded.begin.erb" }
+      },
+      "end": "%>",
+      "endCaptures": {
+        "0": { "name": "punctuation.section.embedded.end.erb" }
+      },
+      "patterns": [
+        { "include": "source.ruby" }
+      ]
+    },
     "comments": {
       "patterns": [{
         "name": "comment.line.number-sign.cosmos",
