@@ -12,24 +12,26 @@
         ["[", "]"],
         ["(", ")"],
         ["\"", "\""],
-        ["'", "'"]
+        ["'", "'"],
+        ["<%", "%>"]
     ],
     "surroundingPairs": [
         ["{", "}"],
         ["[", "]"],
         ["(", ")"],
         ["\"", "\""],
-        ["'", "'"]
+        ["'", "'"],
+        ["<%", "%>"]
     ],
     "folding": {
         "markers": {
-            "start": "^\\s*(SCREEN|VERTICALBOX|HORIZONTALBOX|TABBOOK|TABITEM|MATRIXBYCOLUMNS)",
-            "end": "^\\s*END"
+            "start": "^\\s*(SCREEN|VERTICALBOX|HORIZONTALBOX|TABBOOK|TABITEM|<%|BUTTON\\s+['\"][^'\"]*['\"]\\s+['\"])",
+            "end": "^\\s*(END|%>|(?<!\\\\)$)"
         }
     },
     "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)",
     "indentationRules": {
-        "increaseIndentPattern": "^\\s*(SCREEN|VERTICALBOX|HORIZONTALBOX|TABBOOK|TABITEM|MATRIXBYCOLUMNS).*$",
-        "decreaseIndentPattern": "^\\s*END\\s*$"
+        "increaseIndentPattern": "^\\s*(SCREEN|VERTICALBOX|HORIZONTALBOX|TABBOOK|TABITEM|<%|BUTTON\\s+['\"][^'\"]*['\"]\\s+['\"].*\\\\\\s*$).*$",
+        "decreaseIndentPattern": "^\\s*(END|%>)\\s*$"
     }
 }

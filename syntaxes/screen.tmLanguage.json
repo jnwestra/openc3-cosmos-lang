@@ -4,6 +4,7 @@
   "patterns": [
     { "include": "#erb_blocks" },
     { "include": "#erb_expression" },
+    { "include": "#button_with_javascript" },
     { "include": "#comments" },
     { "include": "#screen_keywords" },
     { "include": "#widget_keywords" },
@@ -42,6 +43,50 @@
       "patterns": [
         { "include": "source.ruby" }
       ]
+    },
+    "button_with_javascript": {
+      "name": "meta.button.with.javascript.cosmos",
+      "begin": "(BUTTON)\\s+(['\"])([^\\2]*?)\\2\\s+",
+      "beginCaptures": {
+        "1": { "name": "entity.name.tag.widget.cosmos" },
+        "2": { "name": "punctuation.definition.string.begin.cosmos" },
+        "3": { "name": "string.quoted.cosmos" }
+      },
+      "patterns": [
+        {
+          "name": "meta.button.javascript.single-quoted.cosmos",
+          "begin": "'",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin.cosmos" }
+          },
+          "end": "'(?!\\s*\\\\)",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.cosmos" }
+          },
+          "patterns": [
+            { "include": "source.js" }
+          ]
+        },
+        {
+          "name": "meta.button.javascript.double-quoted.cosmos",
+          "begin": "\"",
+          "beginCaptures": {
+            "0": { "name": "punctuation.definition.string.begin.cosmos" }
+          },
+          "end": "\"(?!\\s*\\\\)",
+          "endCaptures": {
+            "0": { "name": "punctuation.definition.string.end.cosmos" }
+          },
+          "patterns": [
+            { "include": "source.js" }
+          ]
+        },
+        {
+          "match": "\\\\\\s*$",
+          "name": "constant.character.escape.line-continuation.cosmos"
+        }
+      ],
+      "end": "(?<!\\\\)(?=$|\\s*(?:SCREEN|END|VERTICALBOX|HORIZONTALBOX|LABEL|BUTTON|CHECKBUTTON|COMBOBOX|CANVAS))"
     },
     "comments": {
       "patterns": [{

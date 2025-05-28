@@ -28,8 +28,10 @@
         "scopeName": "source.cosmos.screen",
         "path": "./syntaxes/screen.tmLanguage.json",
         "embeddedLanguages": {
-          "meta.embedded.block.erb": "ruby",
-          "meta.embedded.line.erb": "ruby"
+            "meta.button.javascript.single-quoted.cosmos": "javascript",
+            "meta.button.javascript.double-quoted.cosmos": "javascript",
+            "meta.embedded.block.erb": "ruby",
+            "meta.embedded.line.erb": "ruby"
         }
       }
     ]
