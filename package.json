@@ -10,6 +10,10 @@
         "type": "git",
         "url": "git@github.com:jnwestra/openc3-cosmos-lang.git"
     },
+    "scripts": {
+        "release": "node ./scripts/release.js",
+        "bump-release": "node ./scripts/bump-release.js"
+    },
     "categories": [
         "Programming Languages"
     ],
