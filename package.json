@@ -1,40 +1,46 @@
 {
-  "name": "openc3-cosmos-lang",
-  "displayName": "OpenC3 COSMOS Language Support",
-  "description": "Adds language support for OpenC3 COSMOS 5+ configuration languages",
-  "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.100.0"
-  },
-  "categories": [
-    "Programming Languages"
-  ],
-  "contributes": {
-    "languages": [
-      {
-        "id": "cosmos-screen",
-        "aliases": ["COSMOS Screen", "cosmos-screen"],
-        "extensions": [".txt", ".erb"],
-        "filenamePatterns": [
-            "**/targets/*/screens/**/*.txt",
-            "**/targets/*/screens/**/*.erb"
-        ],
-        "configuration": "./language-configuration/screen.json"
-      }
+    "name": "openc3-cosmos-lang",
+    "displayName": "OpenC3 COSMOS Language Support",
+    "description": "Adds language support for OpenC3 COSMOS 5+ configuration languages",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.100.0"
+    },
+    "categories": [
+        "Programming Languages"
     ],
-    "grammars": [
-      {
-        "language": "cosmos-screen",
-        "scopeName": "source.cosmos.screen",
-        "path": "./syntaxes/screen.tmLanguage.json",
-        "embeddedLanguages": {
-            "meta.embedded.block.erb": "ruby",
-            "meta.embedded.line.erb": "ruby",
-            "source.ruby.embedded.erb": "ruby",
-            "meta.button.javascript.single-quoted.cosmos": "javascript",
-            "meta.button.javascript.double-quoted.cosmos": "javascript"
-        }
-      }
-    ]
-  }
+    "contributes": {
+        "languages": [
+            {
+                "id": "cosmos-screen",
+                "aliases": [
+                    "COSMOS Screen",
+                    "cosmos-screen"
+                ],
+                "extensions": [
+                    ".txt",
+                    ".erb"
+                ],
+                "filenamePatterns": [
+                    "**/targets/*/screens/**/*.txt",
+                    "**/targets/*/screens/**/*.erb"
+                ],
+                "configuration": "./language-configuration/screen.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "cosmos-screen",
+                "scopeName": "source.cosmos.screen",
+                "path": "./syntaxes/screen.tmLanguage.json",
+                "embeddedLanguages": {
+                    "meta.embedded.block.erb": "ruby",
+                    "meta.embedded.line.erb": "ruby",
+                    "source.ruby.embedded.erb": "ruby",
+                    "meta.button.javascript.single-quoted.cosmos": "javascript",
+                    "meta.button.javascript.double-quoted.cosmos": "javascript"
+                }
+            }
+        ]
+    }
 }
