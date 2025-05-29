@@ -6,6 +6,10 @@
     "engines": {
         "vscode": "^1.100.0"
     },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:jnwestra/openc3-cosmos-lang.git"
+    },
     "categories": [
         "Programming Languages"
     ],
