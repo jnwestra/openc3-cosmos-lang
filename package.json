@@ -2,10 +2,11 @@
     "name": "openc3-cosmos-lang",
     "displayName": "OpenC3 COSMOS Language Support",
     "description": "Adds language support for OpenC3 COSMOS 5+ configuration languages",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "engines": {
         "vscode": "^1.100.0"
     },
+    "publisher": "jnwestra",
     "repository": {
         "type": "git",
         "url": "git@github.com:jnwestra/openc3-cosmos-lang.git"
